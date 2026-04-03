@@ -1,0 +1,217 @@
+import jsPDF from "jspdf"
+
+export interface DocumentData {
+  [key: string]: string
+}
+
+export const generatePDF = (content: string, filename = "document.pdf"): void => {
+  const pdf = new jsPDF()
+
+  // Set font
+  pdf.setFont("helvetica", "normal")
+  pdf.setFontSize(12)
+
+  // Split content into lines that fit the page width
+  const pageWidth = pdf.internal.pageSize.getWidth()
+  const margin = 20
+  const maxLineWidth = pageWidth - margin * 2
+
+  const lines = pdf.splitTextToSize(content, maxLineWidth)
+
+  // Add content to PDF
+  let yPosition = margin
+  const lineHeight = 7
+
+  lines.forEach((line: string) => {
+    // Check if we need a new page
+    if (yPosition > pdf.internal.pageSize.getHeight() - margin) {
+      pdf.addPage()
+      yPosition = margin
+    }
+
+    pdf.text(line, margin, yPosition)
+    yPosition += lineHeight
+  })
+
+  // Download the PDF
+  pdf.save(filename)
+}
+
+export const generateDocumentContent = (type: string, data: DocumentData): string => {
+  switch (type) {
+    case "motivation":
+      return generateMotivationLetter(data)
+    case "demission":
+      return generateResignationLetter(data)
+    case "recommandation":
+      return generateRecommendationLetter(data)
+    default:
+      return "Type de document non supporté"
+  }
+}
+
+const generateMotivationLetter = (data: DocumentData): string => {
+  const today = new Date().toLocaleDateString("fr-FR")
+
+  return `${data.nom || "[Votre nom]"}
+${data.titre || "[Votre titre]"}
+[Votre adresse]
+[Ville, Code postal]
+[Téléphone]
+[Email]
+
+${data.date || today}
+
+${data.destinataire || "[Nom du destinataire]"}
+${data.entreprise || "[Nom de l'entreprise]"}
+[Adresse de l'entreprise]
+
+Objet : Candidature pour le poste de ${data.poste || "[Poste visé]"}
+
+${data.destinataire ? `Madame, Monsieur ${data.destinataire}` : "Madame, Monsieur"},
+
+Je me permets de vous adresser ma candidature pour le poste de ${data.poste || "[poste visé]"} au sein de votre équipe chez ${data.entreprise || "[entreprise]"}.
+
+Diplômé(e) et fort(e) de mon expérience professionnelle, je suis convaincu(e) que mon profil correspond aux exigences de ce poste. Mes compétences techniques et ma motivation à contribuer efficacement aux objectifs de votre équipe constituent des atouts majeurs pour votre organisation.
+
+Mon parcours professionnel m'a permis de développer des compétences solides en [mentionnez vos compétences clés], particulièrement adaptées aux défis que représente le poste proposé. Je suis persuadé(e) que mes qualités personnelles et professionnelles seront un véritable atout pour ${data.entreprise || "[entreprise]"}.
+
+Je serais ravi(e) de vous rencontrer pour discuter de ma candidature et vous démontrer ma motivation. Je reste à votre disposition pour tout complément d'information.
+
+Dans l'attente de votre retour, je vous prie d'agréer, ${data.destinataire ? `Madame, Monsieur ${data.destinataire}` : "Madame, Monsieur"}, l'expression de mes salutations distinguées.
+
+${data.nom || "[Votre nom]"}
+
+Pièces jointes : CV, diplômes, références`
+}
+
+const generateResignationLetter = (data: DocumentData): string => {
+  const today = new Date().toLocaleDateString("fr-FR")
+
+  return `${data.nom || "[Votre nom]"}
+${data.poste || "[Votre poste actuel]"}
+[Votre adresse]
+[Ville, Code postal]
+
+${data.date || today}
+
+${data.manager || "[Nom du manager]"}
+${data.entreprise || "[Nom de l'entreprise]"}
+[Adresse de l'entreprise]
+
+Objet : Démission de mon poste de ${data.poste || "[votre poste]"}
+
+${data.manager ? `Madame, Monsieur ${data.manager}` : "Madame, Monsieur"},
+
+Par la présente, je vous informe de ma décision de démissionner de mon poste de ${data.poste || "[votre poste]"} au sein de ${data.entreprise || "[entreprise]"}.
+
+Conformément aux dispositions de mon contrat de travail et aux conventions collectives en vigueur, je respecterai la période de préavis légale. Mon dernier jour de travail sera donc le ${data.dateFin || "[date de fin]"}.
+
+Cette décision, mûrement réfléchie, s'inscrit dans le cadre de mon évolution professionnelle. Je tiens à vous assurer que je mettrai tout en œuvre pour assurer une transition harmonieuse de mes responsabilités et former, si nécessaire, la personne qui me succédera.
+
+Je vous remercie pour la confiance que vous m'avez accordée durant ces années de collaboration et pour les opportunités de développement professionnel que j'ai pu saisir au sein de votre équipe.
+
+Je reste à votre disposition pour organiser au mieux cette transition et vous prie d'agréer, ${data.manager ? `Madame, Monsieur ${data.manager}` : "Madame, Monsieur"}, l'expression de mes salutations respectueuses.
+
+${data.nom || "[Votre nom]"}
+Signature`
+}
+
+const generateRecommendationLetter = (data: DocumentData): string => {
+  const today = new Date().toLocaleDateString("fr-FR")
+
+  return `${data.nom || "[Votre nom]"}
+${data.poste || "[Votre poste]"}
+[Votre entreprise]
+[Adresse]
+[Téléphone]
+[Email]
+
+${data.date || today}
+
+LETTRE DE RECOMMANDATION
+
+Je soussigné(e), ${data.nom || "[votre nom]"}, ${data.poste || "[votre poste]"}, certifie avoir eu ${data.candidat || "[nom du candidat]"} sous ma responsabilité en qualité de ${data.posteCandidatActuel || "[poste du candidat]"}.
+
+Durant cette période de collaboration, ${data.candidat || "[nom du candidat]"} a fait preuve de qualités professionnelles remarquables :
+
+• Compétences techniques solides et adaptabilité
+• Excellent relationnel et esprit d'équipe
+• Autonomie et prise d'initiative
+• Respect des délais et qualité du travail fourni
+• Capacité d'analyse et de résolution de problèmes
+
+${data.candidat || "[Nom du candidat]"} s'est toujours montré(e) impliqué(e) dans ses missions et a contribué de manière significative aux résultats de notre équipe. Sa rigueur professionnelle et son sens des responsabilités en font un(e) collaborateur/trice de confiance.
+
+Je recommande vivement ${data.candidat || "[nom du candidat]"} pour le poste de ${data.posteCandidatVise || "[poste visé]"}. Ses compétences et son expérience constituent des atouts certains pour votre organisation.
+
+Je reste à votre disposition pour tout complément d'information concernant cette recommandation.
+
+Cordialement,
+
+${data.nom || "[Votre nom]"}
+${data.poste || "[Votre poste]"}
+Signature`
+}
+
+export const previewDocument = (content: string): void => {
+  const previewWindow = window.open("", "_blank")
+  if (previewWindow) {
+    previewWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Aperçu du document</title>
+          <style>
+            body {
+              font-family: 'Times New Roman', serif;
+              line-height: 1.6;
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 40px 20px;
+              background: #f5f5f5;
+            }
+            .document {
+              background: white;
+              padding: 60px;
+              box-shadow: 0 0 20px rgba(0,0,0,0.1);
+              min-height: 800px;
+            }
+            .content {
+              white-space: pre-line;
+              font-size: 14px;
+              line-height: 1.8;
+            }
+            .print-button {
+              position: fixed;
+              top: 20px;
+              right: 20px;
+              padding: 10px 20px;
+              background: #2563eb;
+              color: white;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+              font-size: 14px;
+            }
+            .print-button:hover {
+              background: #1d4ed8;
+            }
+            @media print {
+              body { background: white; }
+              .document { box-shadow: none; padding: 40px; }
+              .print-button { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <button class="print-button" onclick="window.print()">Imprimer</button>
+          <div class="document">
+            <div class="content">${content}</div>
+          </div>
+        </body>
+      </html>
+    `)
+    previewWindow.document.close()
+  }
+}
