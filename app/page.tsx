@@ -12,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { MapPin, Clock, Building2, Users, Star, ArrowRight, Search, Heart, Bookmark } from "lucide-react"
 import { jobService } from "@/lib/api/job.service"
 import { IJobOffer } from "@/lib/@types/entities"
+import { formatAmount } from "@/lib/utils"
 
 // Mock user state - in real app this would come from auth context
 const isLoggedIn = false // Change this to true to see logged in state
@@ -286,7 +287,7 @@ export default function Page() {
                                     </div>
 
                                     <div className="flex items-center justify-between">
-                                        <span className="font-semibold text-blue-600 truncate mr-2">{job.salary}</span>
+                                        <span className="font-semibold text-blue-600 truncate mr-2">{formatAmount(job.salary)}</span>
                                         <Button size="sm" className="bg-blue-600 hover:bg-blue-700 flex-shrink-0">
                                             Postuler
                                         </Button>

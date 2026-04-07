@@ -5,7 +5,7 @@ import { ICandidature } from "@/lib/@types/entities"
 export const candidatureService = {
     getCandidatures: async (status?: string) => {
         return apiRequest<ApiResponse<ICandidature[]>>({
-            endpoint: "/candidatures",
+            endpoint: "/candidatures/paginate",
             method: "GET",
             params: status ? { status } : undefined,
         })

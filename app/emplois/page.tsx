@@ -12,6 +12,7 @@ import { Search, MapPin, Clock, Heart } from "lucide-react"
 import { FiltersModal } from "@/components/filters-modal"
 import { jobService } from "@/lib/api/job.service"
 import { companyService } from "@/lib/api/company.service"
+import { formatFileUrl } from "@/lib/utils"
 
 const jobCategories = [
     "Vente/Commerce",
@@ -105,8 +106,8 @@ export default function JobListingsPage() {
                                             <div className="flex items-start gap-4 mb-4">
                                                 <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
                                                     <img
-                                                        src={job.logo || "/placeholder.svg"}
-                                                        alt={`${job.company} logo`}
+                                                        src={formatFileUrl(job.company?.logo) || "/placeholder.svg"}
+                                                        alt={`${job.company?.name} logo`}
                                                         className="w-full h-full object-cover"
                                                     />
                                                 </div>
@@ -114,7 +115,7 @@ export default function JobListingsPage() {
                                                     <Link href={`/emplois/${job.id}`} className="hover:underline">
                                                         <h3 className="font-semibold text-lg text-foreground mb-1">{job.title}</h3>
                                                     </Link>
-                                                    <p className="text-muted-foreground mb-2">{job.company}</p>
+                                                    <p className="text-muted-foreground mb-2">{job.company?.name ?? "—"}</p>
                                                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                                                         <div className="flex items-center gap-1">
                                                             <MapPin className="w-4 h-4" />
@@ -160,7 +161,7 @@ export default function JobListingsPage() {
                                     <div className="flex items-center gap-3 mb-4">
                                         <div className="w-12 h-12 rounded-lg overflow-hidden">
                                             <img
-                                                src={company.logo || "/placeholder.svg"}
+                                                src={formatFileUrl(company.logo) || "/placeholder.svg"}
                                                 alt={`${company.name} logo`}
                                                 className="w-full h-full object-cover"
                                             />
@@ -173,7 +174,7 @@ export default function JobListingsPage() {
                                     <p className="text-xs text-muted-foreground mb-2">{company.location}</p>
                                     <p className="text-xs font-medium mb-3">{company.offers}</p>
                                     <div className="flex gap-2">
-                                        {company.tags.map((tag: any, tagIndex: number) => (
+                                        {(company.tags ?? []).map((tag: any, tagIndex: number) => (
                                             <Badge key={tagIndex} variant="secondary" className="text-xs">
                                                 {tag}
                                             </Badge>

@@ -111,6 +111,13 @@ export function formatDate(
     return new Intl.DateTimeFormat(locale, optionsMap[type]).format(date)
 }
 
+
+export function formatFileUrl(file: string | null | undefined): string {
+    if (!file) return ''
+    if (file.startsWith('http://') || file.startsWith('https://')) return file
+    return `${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://goriya-backend-production.up.railway.app'}/storage/${file}`
+}
+
 export function formatAmount(
     value: number | string,
     currency: string = 'XOF',   // Devise par défaut

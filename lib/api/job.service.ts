@@ -15,7 +15,7 @@ export const jobService = {
         },
     ) => {
         return apiRequest<IPaginatedResponse<IJobOffer>>({
-            endpoint: "/job-offers",
+            endpoint: "/job-offers/paginate",
             method: "GET",
             params: filters,
         })

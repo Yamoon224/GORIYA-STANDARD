@@ -14,7 +14,7 @@ export const companyService = {
         },
     ) => {
         return apiRequest<IPaginatedResponse<ICompany>>({
-            endpoint: "/companies",
+            endpoint: "/companies/paginate",
             method: "GET",
             params: filters,
         })
@@ -43,7 +43,7 @@ export const companyService = {
 
     getRecruitingCompanies: async () => {
         return apiRequest<ApiResponse<ICompany[]>>({
-            endpoint: "/companies/recruiting",
+            endpoint: "/companies/paginate",
             method: "GET",
         })
     },
