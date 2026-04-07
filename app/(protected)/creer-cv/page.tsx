@@ -103,12 +103,12 @@ ${formData.langues || "Indiquez les langues que vous maîtrisez et votre niveau 
                     {/* CV Creator Section */}
                     <div className="lg:col-span-2">
                         <Card className="mb-6">
-                            <CardContent className="p-8 text-center">
-                                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-4">
-                                    <FileText className="w-8 h-8 text-blue-600" />
-                                </div>
-                                <h2 className="text-xl font-semibold mb-2">Créateur de CV</h2>
-                                <p className="text-gray-600 dark:text-gray-300 mb-6">Générez votre CV professionnel</p>
+                            <CardContent className="mb-6">
+                                    <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                        <FileText className="w-8 h-8 text-blue-600" />
+                                    </div>
+                                    <h2 className="text-xl font-semibold mb-2">Créateur de CV</h2>
+                                    <p className="text-gray-600 dark:text-gray-300 mb-6">Générez votre CV professionnel</p>
 
                                 <div className="mb-6">
                                     <div className="flex items-center justify-between mb-2">
@@ -164,9 +164,8 @@ ${formData.langues || "Indiquez les langues que vous maîtrisez et votre niveau 
                             </CardContent>
                         </Card>
 
-                        {/* Analysis Section */}
                         <Card>
-                            <CardContent className="p-8 text-center">
+                            <CardContent className="p-4 sm:p-8 text-center">
                                 <div className="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <span className="text-white text-2xl font-bold">G</span>
                                 </div>
@@ -178,7 +177,7 @@ ${formData.langues || "Indiquez les langues que vous maîtrisez et votre niveau 
                                     <Progress value={analysisProgress} className="h-2" />
                                 </div>
 
-                                <div className="grid grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
+                                <div className="grid grid-cols-3 sm:grid-cols-3 gap-2 sm:gap-4 text-sm text-gray-600 dark:text-gray-300 mb-6">
                                     <div>
                                         <div className="font-medium">Structure</div>
                                         <div>Bien</div>

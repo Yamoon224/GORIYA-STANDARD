@@ -87,9 +87,9 @@ export default function SimulationEntretienPage() {
     return (
         <div className="p-6">
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-                <h1 className="text-2xl font-semibold text-gray-900">Simulation d'Entretien avec Goriya</h1>
-                <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+                <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-foreground">Simulation d'Entretien avec Goriya</h1>
+                <div className="flex flex-wrap gap-2 sm:gap-3">
                     <Button variant="outline" onClick={handleRestart} className="flex items-center gap-2 bg-transparent">
                         <RotateCcw className="w-4 h-4" />
                         Recommencer
@@ -102,7 +102,7 @@ export default function SimulationEntretienPage() {
             </div>
 
             {/* Chat Interface */}
-            <Card className="h-[600px] flex flex-col">
+            <Card className="h-[calc(100vh-220px)] sm:h-[600px] flex flex-col">
                 <CardContent className="flex-1 p-0">
                     {/* Chat Header */}
                     <div className="flex items-center gap-3 p-4 border-b bg-blue-50">
@@ -180,7 +180,7 @@ export default function SimulationEntretienPage() {
                                 <p className="text-gray-600">Analyse de votre performance et conseils d'amélioration</p>
                             </div>
 
-                            <div className="grid grid-cols-3 gap-4 mb-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                                 <div className="text-center">
                                     <div className="text-3xl font-bold text-green-500 mb-1">85%</div>
                                     <div className="text-sm text-gray-600">Score global</div>

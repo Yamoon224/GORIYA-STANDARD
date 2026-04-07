@@ -208,12 +208,12 @@ export default function Page() {
 
     return (
             <div className="max-w-6xl mx-auto">
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
                     <div>
                         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Mon Portfolio</h1>
                         <p className="text-gray-600 dark:text-gray-300 mt-1">Gérez vos projets et réalisations</p>
                     </div>
-                    <Button onClick={openAddModal} className="flex items-center gap-2">
+                    <Button onClick={openAddModal} className="flex items-center gap-2 w-full sm:w-auto">
                         <Plus className="w-4 h-4" />
                         Ajouter un projet
                     </Button>

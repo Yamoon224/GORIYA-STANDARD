@@ -52,7 +52,7 @@ function SearchResults() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="container mx-auto px-6 py-8">
+      <div className="container mx-auto px-4 sm:px-6 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Résultats de recherche pour "{query}"</h1>
           <p className="text-muted-foreground">{searchResults.length} résultats trouvés</p>

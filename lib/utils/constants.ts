@@ -1,8 +1,8 @@
 // Constantes de l'application
 export const API_ENDPOINTS = {
     AUTH: {
-        LOGIN: "/auth/login",
-        SIGNUP: "/auth/signup",
+        LOGIN: "/auth/signin",
+        SIGNUP: "/auth/signin",
         LOGOUT: "/auth/logout",
         REFRESH: "/auth/refresh",
         FORGOT_PASSWORD: "/auth/forgot-password",
@@ -121,8 +121,8 @@ export const ROUTES = {
     CV_ANALYZER: "/analyser-cv",
     SETTINGS: "/parametres",
     AUTH: {
-        LOGIN: "/auth/login",
-        SIGNUP: "/auth/signup",
+        LOGIN: "/auth/signin",
+        SIGNUP: "/auth/signin",
         LOADING: "/auth/loading",
         SETTINGS: "/auth/settings",
     },

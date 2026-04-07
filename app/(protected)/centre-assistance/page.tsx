@@ -79,7 +79,7 @@ export default function CentreAssistancePage() {
                 </div>
 
                 <Card className="mb-8 bg-blue-600 text-white">
-                    <CardContent className="p-8 text-center">
+                    <CardContent className="p-6 sm:p-8 text-center">
                         <h2 className="text-2xl font-semibold mb-2">Comment pouvons-nous vous aider ?</h2>
                         <p className="mb-6 opacity-90">
                             Trouvez rapidement des réponses à vos questions ou contactez notre équipe support

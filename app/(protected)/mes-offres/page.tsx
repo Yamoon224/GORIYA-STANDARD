@@ -44,14 +44,16 @@ export default function MyApplicationsPage() {
         </div>
 
         <Tabs value={selectedStatus} onValueChange={setSelectedStatus} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="all">Toutes</TabsTrigger>
-            <TabsTrigger value="pending">En attente</TabsTrigger>
-            <TabsTrigger value="reviewed">Examinées</TabsTrigger>
-            <TabsTrigger value="interview">Entretiens</TabsTrigger>
-            <TabsTrigger value="accepted">Acceptées</TabsTrigger>
-            <TabsTrigger value="rejected">Refusées</TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto pb-1">
+            <TabsList className="flex min-w-max h-auto flex-wrap sm:grid sm:w-full sm:grid-cols-6">
+              <TabsTrigger value="all" className="flex-1 text-xs sm:text-sm">Toutes</TabsTrigger>
+              <TabsTrigger value="pending" className="flex-1 text-xs sm:text-sm">En attente</TabsTrigger>
+              <TabsTrigger value="reviewed" className="flex-1 text-xs sm:text-sm">Examinées</TabsTrigger>
+              <TabsTrigger value="interview" className="flex-1 text-xs sm:text-sm">Entretiens</TabsTrigger>
+              <TabsTrigger value="accepted" className="flex-1 text-xs sm:text-sm">Acceptées</TabsTrigger>
+              <TabsTrigger value="rejected" className="flex-1 text-xs sm:text-sm">Refusées</TabsTrigger>
+            </TabsList>
+          </div>
 
           <TabsContent value={selectedStatus} className="space-y-4">
             {loading ? (
@@ -69,26 +71,26 @@ export default function MyApplicationsPage() {
             ) : displayApplications.length > 0 ? (
               displayApplications.map((application: any) => (
                 <Card key={application.id} className="hover:shadow-md transition-shadow">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start gap-4">
                       <div className="flex items-start space-x-4 flex-1">
-                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                        <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Building2 className="w-6 h-6 text-gray-600" />
                         </div>
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-gray-900 mb-1">{application.jobTitle}</h3>
                           <p className="text-gray-600 mb-2">{application.company}</p>
-                          <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500 mb-3">
                             <div className="flex items-center">
-                              <MapPin className="w-4 h-4 mr-1" />
+                              <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
                               {application.location}
                             </div>
                             <div className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-1" />
+                              <Calendar className="w-4 h-4 mr-1 flex-shrink-0" />
                               Candidature envoyée le {application.appliedDate}
                             </div>
                           </div>
-                          <div className="flex items-center space-x-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <Badge variant="outline">{application.type}</Badge>
                             <Badge variant="outline" className="text-green-600 border-green-200">
                               {application.salary}
@@ -97,7 +99,7 @@ export default function MyApplicationsPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 self-start">
                         <Button variant="ghost" size="sm">
                           <Eye className="w-4 h-4" />
                         </Button>

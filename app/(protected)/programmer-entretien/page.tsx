@@ -23,8 +23,8 @@ export default function ProgrammerEntretienPage() {
   })
 
   return (
-      <div className="p-6">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-6">Programmer un interview</h1>
+      <div className="p-4 sm:p-6">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-foreground mb-6">Programmer un interview</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Form Section */}
@@ -74,8 +74,8 @@ export default function ProgrammerEntretienPage() {
 
             {/* Date et heure */}
             <Card>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-2 gap-4">
+              <CardContent className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="date">Date</Label>
                     <Input
@@ -100,9 +100,9 @@ export default function ProgrammerEntretienPage() {
 
             {/* Informations de contact */}
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <h2 className="text-lg font-semibold mb-4">Informations de contact</h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="prenom">Prénom</Label>
                     <Input
@@ -146,9 +146,9 @@ export default function ProgrammerEntretienPage() {
 
             {/* Créneaux disponibles */}
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <h2 className="text-lg font-semibold mb-4">Créneaux disponibles</h2>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="text-center">
                     <div className="font-medium">Lundi</div>
                     <div className="text-sm text-gray-600">09:00</div>

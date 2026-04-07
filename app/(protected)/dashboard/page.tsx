@@ -30,14 +30,14 @@ export default function Page() {
                 dashboardService.getStats(),
             ])
 
-            if (applicationsRes.status === "fulfilled") setApplications(applicationsRes.value.data)
-            if (companiesRes.status === "fulfilled") setCompanies(companiesRes.value.data)
-            if (statsRes.status === "fulfilled") {
+            if (applicationsRes.status === "fulfilled") setApplications(applicationsRes.value.data ?? [])
+            if (companiesRes.status === "fulfilled") setCompanies(companiesRes.value.data ?? [])
+            if (statsRes.status === "fulfilled" && statsRes.value?.data) {
                 const s = statsRes.value.data
                 setStats({
-                    totalApplications: s.totalApplications,
-                    interviews: s.interviews,
-                    profileViews: s.profileViews,
+                    totalApplications: s.totalApplications ?? 0,
+                    interviews: s.interviews ?? 0,
+                    profileViews: s.profileViews ?? 0,
                 })
             }
         }

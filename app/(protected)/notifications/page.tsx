@@ -121,8 +121,8 @@ export default function NotificationsPage() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="flex items-center justify-between mb-8">
+      <div className="container mx-auto px-4 sm:px-6 py-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold text-foreground mb-2">Notifications</h1>
             <p className="text-muted-foreground">
@@ -130,7 +130,7 @@ export default function NotificationsPage() {
             </p>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {selectedNotifications.length > 0 && (
               <Button variant="destructive" size="sm" onClick={deleteSelected}>
                 <Trash2 className="w-4 h-4 mr-2" />

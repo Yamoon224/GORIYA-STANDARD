@@ -171,9 +171,9 @@ export default function Page() {
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex items-center space-x-4">
-                                <div className={`text-4xl font-bold ${getScoreColor(analysis.score)}`}>{analysis.score}/100</div>
-                                <div className="flex-1">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                                <div className={`text-4xl font-bold flex-shrink-0 ${getScoreColor(analysis.score)}`}>{analysis.score}/100</div>
+                                <div className="flex-1 w-full">
                                     <Progress value={analysis.score} className="h-3" />
                                     <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">{analysis.summary}</p>
                                 </div>
@@ -260,7 +260,7 @@ export default function Page() {
                     </Card>
 
                     {/* Action Buttons */}
-                    <div className="flex justify-center space-x-4">
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Button
                             variant="outline"
                             onClick={() => {

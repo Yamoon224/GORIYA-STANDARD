@@ -1,6 +1,6 @@
 import { apiRequest } from "@/lib/api-client-http"
-import { ApiResponse, IPaginatedResponse } from "@/lib/@types/api"
 import { ICandidature, IJobOffer } from "@/lib/@types/entities"
+import { ApiResponse, IPaginatedResponse } from "@/lib/@types/api"
 
 export const jobService = {
     getJobs: async (
@@ -15,15 +15,15 @@ export const jobService = {
         },
     ) => {
         return apiRequest<IPaginatedResponse<IJobOffer>>({
-            endpoint: "/jobs",
+            endpoint: "/job-offers",
             method: "GET",
             params: filters,
         })
-    },
+        },
 
     getJobById: async (id: string) => {
         return apiRequest<ApiResponse<IJobOffer>>({
-            endpoint: `/jobs/${id}`,
+            endpoint: `/job-offers/${id}`,
             method: "GET",
         })
     },
@@ -33,7 +33,7 @@ export const jobService = {
         applicationData: { coverLetter?: string; resumeUrl?: string },
     ) => {
         return apiRequest<ApiResponse<ICandidature>>({
-            endpoint: `/jobs/${jobId}/apply`,
+            endpoint: `/job-offers/${jobId}/apply`,
             method: "POST",
             data: applicationData,
         })
@@ -41,14 +41,14 @@ export const jobService = {
 
     saveJob: async (jobId: string) => {
         return apiRequest<ApiResponse<null>>({
-            endpoint: `/jobs/${jobId}/save`,
+            endpoint: `/job-offers/${jobId}/save`,
             method: "POST",
         })
     },
 
     unsaveJob: async (jobId: string) => {
         return apiRequest<ApiResponse<null>>({
-            endpoint: `/jobs/${jobId}/save`,
+            endpoint: `/job-offers/${jobId}/save`,
             method: "DELETE",
         })
     },

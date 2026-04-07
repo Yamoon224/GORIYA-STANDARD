@@ -111,7 +111,7 @@ export default function OffresPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-6 py-12 sm:py-16">
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
         <Tabs defaultValue="jobseekers" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8 sm:mb-12">
             <TabsTrigger value="jobseekers" className="flex items-center space-x-2">

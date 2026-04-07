@@ -18,106 +18,47 @@ import {
     Briefcase,
 } from "lucide-react"
 import { userService } from "@/lib/api/user.service"
+import { useAuth } from "@/contexts/auth-context"
 import { useState, useEffect } from "react"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ProfileData = any
 
+function buildProfile(apiData: any, authUser: { name?: string; email?: string; avatar?: string | null } | null) {
+    const nameParts = (apiData?.name || authUser?.name || "").trim().split(" ")
+    return {
+        firstName: apiData?.firstName || nameParts[0] || "",
+        lastName: apiData?.lastName || nameParts.slice(1).join(" ") || "",
+        title: apiData?.title || "",
+        location: apiData?.location || "",
+        email: apiData?.email || authUser?.email || "",
+        phone: apiData?.phone || "",
+        avatar: apiData?.avatar || authUser?.avatar || "/placeholder.svg",
+        bio: apiData?.bio || "",
+        experience: apiData?.experience || [],
+        education: apiData?.education || [],
+        skills: apiData?.skills || [],
+        portfolio: apiData?.portfolio || [],
+    }
+}
+
 export default function ProfilePage() {
+    const { user } = useAuth()
     const [profile, setProfile] = useState<ProfileData>(null)
     const [isEditing, setIsEditing] = useState(false)
 
     useEffect(() => {
         fetchProfile()
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user])
 
     const fetchProfile = async () => {
         try {
             const response = await userService.getProfile()
-            setProfile(response.data)
+            setProfile(buildProfile(response.data, user))
         } catch (error) {
             console.error("Erreur lors du chargement du profil:", error)
-
-            // Données de démonstration
-            setProfile({
-                id: "1",
-                firstName: "Estelle",
-                lastName: "Doe",
-                title: "Développeuse Full Stack",
-                location: "Paris, France",
-                email: "estelle.doe@email.com",
-                phone: "+33 6 12 34 56 78",
-                avatar: "/placeholder.svg?height=120&width=120",
-                bio: "Développeuse passionnée avec 5 ans d'expérience dans le développement web moderne. Spécialisée en React, Node.js et les architectures cloud.",
-                experience: [
-                    {
-                        id: "1",
-                        company: "TechCorp",
-                        position: "Senior Full Stack Developer",
-                        startDate: "2022-01",
-                        endDate: "",
-                        current: true,
-                        description:
-                            "Développement d'applications web complexes avec React et Node.js. Lead technique sur plusieurs projets stratégiques.",
-                        logo: "/placeholder.svg?height=40&width=40",
-                    },
-                    {
-                        id: "2",
-                        company: "StartupXYZ",
-                        position: "Full Stack Developer",
-                        startDate: "2020-06",
-                        endDate: "2021-12",
-                        current: false,
-                        description:
-                            "Développement de la plateforme principale de l'entreprise. Migration vers une architecture microservices.",
-                        logo: "/placeholder.svg?height=40&width=40",
-                    },
-                ],
-                education: [
-                    {
-                        id: "1",
-                        institution: "École de technologie",
-                        degree: "Master",
-                        field: "Informatique et Systèmes d'Information",
-                        startDate: "2018",
-                        endDate: "2020",
-                        logo: "/placeholder.svg?height=40&width=40",
-                    },
-                    {
-                        id: "2",
-                        institution: "Université Paris Tech",
-                        degree: "Licence",
-                        field: "Informatique",
-                        startDate: "2015",
-                        endDate: "2018",
-                        logo: "/placeholder.svg?height=40&width=40",
-                    },
-                ],
-                skills: ["React", "Node.js", "TypeScript", "Python", "AWS", "Docker", "PostgreSQL", "MongoDB"],
-                portfolio: [
-                    {
-                        id: "1",
-                        title: "E-commerce Platform",
-                        description: "Plateforme e-commerce complète avec paiement intégré",
-                        image: "/placeholder.svg?height=200&width=300",
-                        link: "https://example.com",
-                    },
-                    {
-                        id: "2",
-                        title: "Task Management App",
-                        description: "Application de gestion de tâches collaborative",
-                        image: "/placeholder.svg?height=200&width=300",
-                        link: "https://example.com",
-                    },
-                    {
-                        id: "3",
-                        title: "Analytics Dashboard",
-                        description: "Dashboard d'analytics en temps réel",
-                        image: "/placeholder.svg?height=200&width=300",
-                        link: "https://example.com",
-                    },
-                ],
-            })
+            setProfile(buildProfile(null, user))
         }
     }
 
@@ -137,41 +78,41 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <div className="p-4 sm:p-6 max-w-4xl mx-auto">
             {/* Profile Header */}
             <Card className="mb-6">
-                <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-6">
-                        <div className="flex items-center space-x-6">
-                            <Avatar className="w-24 h-24">
+                <CardContent className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start justify-between gap-4 mb-6">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                            <Avatar className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0">
                                 <AvatarImage src={profile.avatar || "/placeholder.svg"} />
                                 <AvatarFallback className="text-2xl">
-                                    {profile.firstName[0]}
-                                    {profile.lastName[0]}
+                                    {profile.firstName?.[0]}
+                                    {profile.lastName?.[0]}
                                 </AvatarFallback>
                             </Avatar>
                             <div>
-                                <h1 className="text-2xl font-bold text-foreground mb-1">
+                                <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1">
                                     {profile.firstName} {profile.lastName}
                                 </h1>
-                                <p className="text-lg text-muted-foreground mb-2">{profile.title}</p>
+                                <p className="text-base sm:text-lg text-muted-foreground mb-2">{profile.title}</p>
                                 <div className="flex items-center text-muted-foreground mb-2">
-                                    <MapPin className="w-4 h-4 mr-1" />
+                                    <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
                                     {profile.location}
                                 </div>
-                                <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
                                     <div className="flex items-center">
-                                        <Mail className="w-4 h-4 mr-1" />
-                                        {profile.email}
+                                        <Mail className="w-4 h-4 mr-1 flex-shrink-0" />
+                                        <span className="truncate">{profile.email}</span>
                                     </div>
                                     <div className="flex items-center">
-                                        <Phone className="w-4 h-4 mr-1" />
+                                        <Phone className="w-4 h-4 mr-1 flex-shrink-0" />
                                         {profile.phone}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <Button variant="outline" onClick={() => setIsEditing(!isEditing)}>
+                        <Button variant="outline" onClick={() => setIsEditing(!isEditing)} className="w-full sm:w-auto">
                             <Edit className="w-4 h-4 mr-2" />
                             Modifier le profil
                         </Button>

@@ -56,7 +56,7 @@ export default function ExploreCompaniesPage() {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <main className="container mx-auto px-6 py-8">
+            <main className="container mx-auto px-4 sm:px-6 py-8">
                 {/* Page Title */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl font-bold text-foreground mb-4">Explorer les entreprises.</h1>

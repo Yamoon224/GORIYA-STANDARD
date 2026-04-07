@@ -42,7 +42,7 @@ export default function Page() {
     const fetchJobs = async () => {
         try {
             const response = await jobService.getJobs({ ...filters, page: currentPage })
-            setJobs(response.data as unknown as JobOffer[])
+            setJobs((response.data as unknown as JobOffer[]) ?? [])
         } catch (error) {
             console.error("Erreur lors du chargement des offres:", error)
             setJobs([])

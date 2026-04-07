@@ -21,7 +21,7 @@ export default function Page() {
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <div className="p-6">
-                <Link href="/auth/signup" className="inline-flex items-center text-muted-foreground hover:text-foreground">
+                <Link href="/auth/signin" className="inline-flex items-center text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     retour
                 </Link>

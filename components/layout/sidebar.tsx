@@ -108,9 +108,9 @@ export function Sidebar() {
                             key={item.href}
                             href={item.href}
                             className={cn(
-                                "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                                "flex items-center space-x-3 px-3 py-2 rounded-sm text-sm font-medium transition-colors",
                                 pathname === item.href
-                                    ? "bg-primary/10 text-primary border border-primary/20"
+                                    ? "bg-blue-700 text-white border border-blue-700"
                                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
                             )}
                         >
@@ -131,12 +131,11 @@ export function Sidebar() {
                                 key={item.href}
                                 href={item.href}
                                 className={cn(
-                                    "flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                                    "flex items-center space-x-3 px-3 py-2 rounded-sm text-sm font-medium transition-colors",
                                     pathname === item.href
-                                        ? "bg-primary/10 text-primary border border-primary/20"
+                                        ? "bg-blue-700 text-white border border-blue-700"
                                         : "text-muted-foreground hover:bg-accent hover:text-accent-foreground",
-                                )}
-                            >
+                                )}>
                                 <Icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                                 <span className="truncate">{item.title}</span>
                             </Link>

@@ -122,7 +122,7 @@ export function Header({ onToggleSidebar, showMobileMenuButton = false, showLogo
                         </>
                     )}
 
-                    {!isAuthenticated && (
+                    {mounted && !isAuthenticated && (
                         <div className="flex items-center space-x-2">
                             <ThemeToggle />
                             <Link href="/auth/signin">

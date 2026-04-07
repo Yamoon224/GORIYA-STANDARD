@@ -40,7 +40,7 @@ export default function CompaniesPage() {
     const fetchCompanies = async () => {
         try {
             const response = await companyService.getCompanies({ ...filters, page: currentPage })
-            setCompanies(response.data as unknown as Company[])
+            setCompanies((response.data as unknown as Company[]) ?? [])
         } catch (error) {
             console.error("Erreur lors du chargement des entreprises:", error)
             setCompanies([])
@@ -57,11 +57,11 @@ export default function CompaniesPage() {
     }
 
     return (
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
             <div className="mb-6">
-                <h1 className="text-2xl font-bold text-foreground mb-2">Parcourir les entreprises</h1>
-                <div className="flex items-center space-x-4">
-                    <div className="relative flex-1 max-w-md">
+                <h1 className="text-2xl font-bold text-foreground mb-4">Parcourir les entreprises</h1>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                    <div className="relative flex-1 max-w-full sm:max-w-md">
                         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
                         <Input
                             placeholder="Recherchez un emploi par intitulé, poste, mot clé ou entreprise..."
@@ -74,9 +74,9 @@ export default function CompaniesPage() {
                 </div>
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex flex-col lg:flex-row gap-6">
                 {/* Filters Sidebar */}
-                <div className="w-64 space-y-6">
+                <div className="w-full lg:w-64 space-y-6">
                     <div>
                         <h3 className="font-semibold text-foreground mb-3">Industrie et services</h3>
                         <div className="space-y-2">

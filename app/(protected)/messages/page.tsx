@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Search, Send, Paperclip, Star, MoreHorizontal, Bell } from "lucide-react"
+import { Search, Send, Paperclip, Star, MoreHorizontal, Bell, ChevronLeft } from "lucide-react"
 import { messageService } from "@/lib/api/message.service"
 import { useState, useEffect, useRef } from "react"
 
@@ -35,6 +35,7 @@ export default function MessagesPage() {
     const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null)
     const [newMessage, setNewMessage] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
+    const [showMobileList, setShowMobileList] = useState(true)
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
@@ -189,9 +190,9 @@ export default function MessagesPage() {
     )
 
     return (
-        <div className="h-[calc(100vh-2rem)] flex">
+        <div className="h-[calc(100vh-4rem)] sm:h-[calc(100vh-2rem)] flex overflow-hidden">
             {/* Conversations List */}
-            <div className="w-80 border-r border-border bg-background flex flex-col">
+            <div className={`${showMobileList ? 'flex' : 'hidden'} md:flex w-full md:w-80 border-r border-border bg-background flex-col flex-shrink-0`}>
                 {/* Header */}
                 <div className="p-4 border-b border-border">
                     <div className="flex items-center justify-between mb-4">
@@ -218,7 +219,7 @@ export default function MessagesPage() {
                             key={conversation.id}
                             className={`p-4 border-b border-border cursor-pointer hover:bg-muted/50 transition-colors ${selectedConversation?.id === conversation.id ? "bg-primary/10 border-primary/20" : ""
                                 }`}
-                            onClick={() => setSelectedConversation(conversation)}
+                            onClick={() => { setSelectedConversation(conversation); setShowMobileList(false) }}
                         >
                             <div className="flex items-start space-x-3">
                                 <div className="relative">
@@ -260,13 +261,21 @@ export default function MessagesPage() {
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 flex flex-col bg-background">
+            <div className={`${!showMobileList ? 'flex' : 'hidden'} md:flex flex-1 flex-col bg-background min-w-0`}>
                 {selectedConversation ? (
                     <>
                         {/* Chat Header */}
                         <div className="p-4 border-b border-border bg-background">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-3">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        className="md:hidden mr-1 -ml-2"
+                                        onClick={() => setShowMobileList(true)}
+                                    >
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </Button>
                                     <Avatar className="w-10 h-10">
                                         <AvatarImage src={selectedConversation.participantAvatar || "/placeholder.svg"} />
                                         <AvatarFallback>

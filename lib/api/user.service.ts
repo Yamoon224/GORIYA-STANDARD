@@ -5,7 +5,7 @@ import { IUser } from "@/lib/@types/entities"
 export const userService = {
     getProfile: async () => {
         return apiRequest<ApiResponse<IUser>>({
-            endpoint: "/user/profile",
+            endpoint: "/auth/profile",
             method: "GET",
         })
     },

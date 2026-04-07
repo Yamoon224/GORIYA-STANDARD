@@ -15,17 +15,17 @@ export function DashboardHeader() {
         .slice(0, 2)
 
     return (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-                <h1 className="text-2xl font-bold text-foreground">Bonjour, {displayName}</h1>
-                <p className="text-muted-foreground">Voici un aperçu de vos candidatures et offres d'emploi</p>
+                <h1 className="text-xl sm:text-2xl font-bold text-foreground">Bonjour, {displayName}</h1>
+                <p className="text-muted-foreground text-sm sm:text-base">Voici un aperçu de vos candidatures et offres d'emploi</p>
             </div>
-            <div className="flex items-center space-x-4">
-                <div className="text-right">
+            <div className="flex items-center space-x-3 sm:space-x-4">
+                <div className="text-left sm:text-right">
                     <p className="text-sm text-muted-foreground">Prochaine entrevue</p>
                     <p className="font-medium text-foreground">Aujourd'hui</p>
                 </div>
-                <Avatar className="w-12 h-12">
+                <Avatar className="w-10 h-10 sm:w-12 sm:h-12 flex-shrink-0">
                     <AvatarImage src={user?.avatar ?? undefined} />
                     <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
