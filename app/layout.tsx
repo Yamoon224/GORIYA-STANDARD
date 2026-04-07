@@ -7,6 +7,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/contexts/auth-context"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
     title: "Goriya - Plateforme de recrutement",
@@ -35,6 +36,13 @@ export default function RootLayout({
                     </AuthProvider>
                 </ThemeProvider>
                 <Analytics />
+                <Toaster
+                    position="top-right"
+                    toastOptions={{
+                        className: "text-sm",
+                    }}
+                    richColors
+                />
             </body>
         </html>
     )
