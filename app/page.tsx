@@ -1,97 +1,34 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { Card, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { MapPin, Clock, Building2, Users, Star, ArrowRight, Search, Heart, Bookmark } from "lucide-react"
+import { jobService } from "@/lib/api/job.service"
+import { IJobOffer } from "@/lib/@types/entities"
 
 // Mock user state - in real app this would come from auth context
 const isLoggedIn = false // Change this to true to see logged in state
 
-const jobListings = [
-    {
-        id: 1,
-        title: "Business Developer International (H/F)",
-        company: "Pitch",
-        location: "Marcory, Zone 4",
-        type: "CDI",
-        duration: "Il y a 20 jours",
-        salary: "200 000 FCFA / mois",
-        logo: "/pitch-logo-black.jpg",
-        image: "/international-business-team.jpg",
-        saved: false,
-    },
-    {
-        id: 2,
-        title: "Business Developer Junior (H/F)",
-        company: "Pitch",
-        location: "Plateau",
-        type: "CDI",
-        duration: "Il y a 20 jours",
-        salary: "150 000 FCFA / mois",
-        logo: "/pitch-logo-black.jpg",
-        image: "/junior-developer-team.jpg",
-        saved: true,
-    },
-    {
-        id: 3,
-        title: "Data base engineer SQL et PLSQL (H/F)",
-        company: "Pitch",
-        location: "Bingerville Rue P368",
-        type: "CDI",
-        duration: "Il y a 20 jours",
-        salary: "250 000 FCFA / mois",
-        logo: "/pitch-logo-black.jpg",
-        image: "/database-engineer-workspace.jpg",
-        saved: false,
-    },
-    {
-        id: 4,
-        title: "Marketing Manager (H/F)",
-        company: "Twitter",
-        location: "Abidjan, Côte d'Ivoire",
-        type: "CDI",
-        duration: "Il y a 3 jours",
-        salary: "300 000 FCFA / mois",
-        logo: "/generic-bird-logo.png",
-        image: "/marketing-team-workspace.jpg",
-        saved: false,
-    },
-    {
-        id: 5,
-        title: "UX Designer Senior (H/F)",
-        company: "Marketing REVOLUT",
-        location: "Abidjan, Côte d'Ivoire",
-        type: "CDI",
-        duration: "Il y a 1 semaine",
-        salary: "280 000 FCFA / mois",
-        logo: "/revolut-logo.png",
-        image: "/ux-designer-workspace.jpg",
-        saved: true,
-    },
-    {
-        id: 6,
-        title: "Développeur Frontend React (H/F)",
-        company: "Pitch",
-        location: "Abidjan Plateau",
-        type: "CDI",
-        duration: "Il y a 5 jours",
-        salary: "220 000 FCFA / mois",
-        logo: "/pitch-logo-black.jpg",
-        image: "/frontend-developer-workspace.jpg",
-        saved: false,
-    },
-]
-
 export default function Page() {
-    const [savedJobs, setSavedJobs] = useState<number[]>([2, 5])
+    const [savedJobs, setSavedJobs] = useState<string[]>([])
+    const [popularJobs, setPopularJobs] = useState<IJobOffer[]>([])
+    const [jobsLoading, setJobsLoading] = useState(true)
 
-    const toggleSaveJob = (jobId: number) => {
+    useEffect(() => {
+        jobService.getJobs({ limit: 6 })
+            .then((res) => setPopularJobs(res.data ?? []))
+            .catch(() => setPopularJobs([]))
+            .finally(() => setJobsLoading(false))
+    }, [])
+
+    const toggleSaveJob = (jobId: string) => {
         setSavedJobs((prev) => (prev.includes(jobId) ? prev.filter((id) => id !== jobId) : [...prev, jobId]))
     }
 
@@ -136,45 +73,63 @@ export default function Page() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            {[1, 2, 3, 4, 5, 6].map((i) => (
-                                <Card
-                                    key={i}
-                                    className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-border bg-card"
-                                >
-                                    <CardContent className="p-6">
-                                        <div className="flex items-start justify-between mb-4">
-                                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-sm flex items-center justify-center">
-                                                <Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            {jobsLoading
+                                ? Array.from({ length: 6 }).map((_, i) => (
+                                    <Card key={i} className="border-border bg-card">
+                                        <CardContent className="p-6 space-y-3">
+                                            <Skeleton className="h-12 w-12 rounded-sm" />
+                                            <Skeleton className="h-5 w-3/4" />
+                                            <Skeleton className="h-4 w-1/2" />
+                                            <Skeleton className="h-4 w-2/3" />
+                                            <Skeleton className="h-4 w-1/3" />
+                                        </CardContent>
+                                    </Card>
+                                ))
+                                : popularJobs.map((job) => (
+                                    <Card
+                                        key={job.id}
+                                        className="hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border-border bg-card"
+                                    >
+                                        <CardContent className="p-6">
+                                            <div className="flex items-start justify-between mb-4">
+                                                <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-sm flex items-center justify-center flex-shrink-0">
+                                                    {job.company?.logo ? (
+                                                        <img src={job.company.logo} alt={job.company.name} className="w-full h-full object-cover rounded-sm" />
+                                                    ) : (
+                                                        <Building2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                                                    )}
+                                                </div>
+                                                <Badge variant="secondary">{job.type}</Badge>
                                             </div>
-                                            <Badge variant="secondary">CDI</Badge>
-                                        </div>
-                                        <h3 className="font-semibold text-lg mb-2 text-card-foreground">Développeur Full Stack</h3>
-                                        <p className="text-muted-foreground mb-4">TechCorp Solutions</p>
-                                        <div className="flex items-center text-sm text-muted-foreground mb-2">
-                                            <MapPin className="w-4 h-4 mr-1" />
-                                            Paris, France
-                                        </div>
-                                        <div className="flex items-center text-sm text-muted-foreground mb-4">
-                                            <Clock className="w-4 h-4 mr-1" />
-                                            Publié il y a 2 jours
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="font-semibold text-blue-600 dark:text-blue-400">45k - 65k €</span>
-                                            <Button size="sm" className="transition-colors">
-                                                Postuler
-                                            </Button>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))}
+                                            <h3 className="font-semibold text-lg mb-1 text-card-foreground line-clamp-2">{job.title}</h3>
+                                            <p className="text-muted-foreground mb-3 truncate">{job.company?.name ?? "—"}</p>
+                                            <div className="flex items-center text-sm text-muted-foreground mb-2">
+                                                <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+                                                <span className="truncate">{job.location}</span>
+                                            </div>
+                                            <div className="flex items-center text-sm text-muted-foreground mb-4">
+                                                <Clock className="w-4 h-4 mr-1 flex-shrink-0" />
+                                                {new Date(job.publishDate).toLocaleDateString("fr-FR")}
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="font-semibold text-blue-600 dark:text-blue-400 truncate mr-2">{job.salary}</span>
+                                                <Link href={`/emplois`}>
+                                                    <Button size="sm" className="transition-colors flex-shrink-0">
+                                                        Postuler
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                ))
+                            }
                         </div>
 
                         <div className="text-center">
                             <Link href="/emplois">
                                 <Button
                                     size="lg"
-                                    className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
-                                >
+                                    className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors">
                                     Voir toutes les offres
                                     <ArrowRight className="w-4 h-4 ml-2" />
                                 </Button>
@@ -285,28 +240,31 @@ export default function Page() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {jobListings.slice(0, 4).map((job) => (
+                        {popularJobs.slice(0, 4).map((job) => (
                             <Card key={job.id} className="hover:shadow-lg transition-shadow">
                                 <CardContent className="p-6">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-lg overflow-hidden">
-                                                <img
-                                                    src={job.logo || "/placeholder.svg"}
-                                                    alt={`${job.company} logo`}
-                                                    className="w-full h-full object-cover"
-                                                />
+                                            <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted flex items-center justify-center flex-shrink-0">
+                                                {job.company?.logo ? (
+                                                    <img
+                                                        src={job.company.logo}
+                                                        alt={`${job.company.name} logo`}
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <Building2 className="w-6 h-6 text-muted-foreground" />
+                                                )}
                                             </div>
-                                            <div>
-                                                <h3 className="font-semibold text-foreground">{job.company}</h3>
-                                                <p className="text-sm text-muted-foreground">{job.location}</p>
+                                            <div className="min-w-0">
+                                                <h3 className="font-semibold text-foreground truncate">{job.company?.name ?? "—"}</h3>
+                                                <p className="text-sm text-muted-foreground truncate">{job.location}</p>
                                             </div>
                                         </div>
-                                        <div className="flex gap-2">
+                                        <div className="flex gap-2 flex-shrink-0">
                                             <Button variant="ghost" size="sm" onClick={() => toggleSaveJob(job.id)} className="p-2">
                                                 <Bookmark
-                                                    className={`w-4 h-4 ${savedJobs.includes(job.id) ? "fill-current text-blue-600" : "text-muted-foreground"
-                                                        }`}
+                                                    className={`w-4 h-4 ${savedJobs.includes(job.id) ? "fill-current text-blue-600" : "text-muted-foreground"}`}
                                                 />
                                             </Button>
                                             <Button variant="ghost" size="sm" className="p-2">
@@ -315,21 +273,21 @@ export default function Page() {
                                         </div>
                                     </div>
 
-                                    <Link href={`/emploi/${job.id}`} className="hover:underline">
-                                        <h4 className="font-semibold text-lg mb-2 text-foreground">{job.title}</h4>
+                                    <Link href={`/emplois`} className="hover:underline">
+                                        <h4 className="font-semibold text-lg mb-2 text-foreground line-clamp-2">{job.title}</h4>
                                     </Link>
 
                                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                                         <Badge variant="secondary">{job.type}</Badge>
                                         <div className="flex items-center gap-1">
                                             <Clock className="w-4 h-4" />
-                                            {job.duration}
+                                            {new Date(job.publishDate).toLocaleDateString("fr-FR")}
                                         </div>
                                     </div>
 
                                     <div className="flex items-center justify-between">
-                                        <span className="font-semibold text-blue-600">{job.salary}</span>
-                                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                                        <span className="font-semibold text-blue-600 truncate mr-2">{job.salary}</span>
+                                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700 flex-shrink-0">
                                             Postuler
                                         </Button>
                                     </div>

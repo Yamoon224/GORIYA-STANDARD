@@ -19,7 +19,7 @@ export const jobService = {
             method: "GET",
             params: filters,
         })
-        },
+    },
 
     getJobById: async (id: string) => {
         return apiRequest<ApiResponse<IJobOffer>>({
