@@ -125,7 +125,7 @@ export function Header({ onToggleSidebar, showMobileMenuButton = false, showLogo
                     {!isAuthenticated && (
                         <div className="flex items-center space-x-2">
                             <ThemeToggle />
-                            <Link href="/auth/signup">
+                            <Link href="/auth/signin">
                                 <Button variant="outline" size="sm" className="text-xs sm:text-sm bg-transparent">
                                     Se connecter
                                 </Button>
