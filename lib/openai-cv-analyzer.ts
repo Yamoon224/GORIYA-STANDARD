@@ -2,13 +2,12 @@ import OpenAI from "openai"
 import { CVAnalysis } from "@/lib/@types/openai"
 import { extractTextFromPDF, extractTextFromWord, extractTextFromImage } from "./pdf-text-extractor"
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-})
-
-
 export const analyzeCVWithOpenAI = async (cvText: string): Promise<CVAnalysis> => {
+    const openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        dangerouslyAllowBrowser: true,
+    })
+
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
