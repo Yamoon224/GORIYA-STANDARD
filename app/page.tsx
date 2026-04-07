@@ -102,14 +102,14 @@ export default function Page() {
                 <Header />
 
                 {/* Hero Section */}
-                <section className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 text-white py-20">
-                    <div className="container mx-auto px-6 text-center">
-                        <h1 className="text-5xl font-bold mb-6 text-balance">Trouvez votre emploi idéal avec Goriya</h1>
-                        <p className="text-xl mb-8 max-w-2xl mx-auto text-pretty">
+                <section className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-700 dark:to-blue-900 text-white py-12 sm:py-20">
+                    <div className="container mx-auto px-4 sm:px-6 text-center">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-balance">Trouvez votre emploi idéal avec Goriya</h1>
+                        <p className="text-base sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-pretty">
                             Connectez-vous avec les meilleures entreprises et découvrez des opportunités qui correspondent à vos
                             compétences et aspirations.
                         </p>
-                        <div className="flex justify-center space-x-4">
+                        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
                             <Link href="/auth/signin">
                                 <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 transition-colors">
                                     Commencer maintenant
@@ -126,10 +126,10 @@ export default function Page() {
                 </section>
 
                 {/* Job Search Section */}
-                <section className="py-16 bg-muted/30">
-                    <div className="container mx-auto px-6">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl font-bold text-foreground mb-4 text-balance">Offres d'emploi populaires</h2>
+                <section className="py-10 sm:py-16 bg-muted/30">
+                    <div className="container mx-auto px-4 sm:px-6">
+                        <div className="text-center mb-8 sm:mb-12">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-balance">Offres d'emploi populaires</h2>
                             <p className="text-muted-foreground max-w-2xl mx-auto text-pretty">
                                 Découvrez les dernières opportunités dans votre domaine
                             </p>
@@ -184,9 +184,9 @@ export default function Page() {
                 </section>
 
                 {/* Find Your Job Section */}
-                <section className="py-16 bg-background">
-                    <div className="container mx-auto px-6 text-center">
-                        <h2 className="text-3xl font-bold text-foreground mb-4 text-balance">FIND YOUR JOB</h2>
+                <section className="py-10 sm:py-16 bg-background">
+                    <div className="container mx-auto px-4 sm:px-6 text-center">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4 text-balance">FIND YOUR JOB</h2>
                         <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-pretty">
                             Utilisez nos outils avancés pour trouver l'emploi parfait
                         </p>
@@ -229,10 +229,10 @@ export default function Page() {
         <div className="min-h-screen bg-background">
             <Header />
 
-            <main className="container mx-auto px-6 py-8">
+            <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
                 {/* Welcome Section */}
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-foreground mb-2">Bonjour, John!</h1>
+                <div className="mb-6 sm:mb-8">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Bonjour, John!</h1>
                     <p className="text-muted-foreground">Voici les dernières opportunités pour vous</p>
                 </div>
 
@@ -276,9 +276,9 @@ export default function Page() {
                 </div>
 
                 {/* Recommended Jobs */}
-                <div className="mb-8">
-                    <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-2xl font-bold text-foreground">Recommandé pour vous</h2>
+                <div className="mb-6 sm:mb-8">
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                        <h2 className="text-xl sm:text-2xl font-bold text-foreground">Recommandé pour vous</h2>
                         <Link href="/emplois" className="text-blue-600 hover:text-blue-700 font-medium">
                             Voir tout
                         </Link>
@@ -340,38 +340,38 @@ export default function Page() {
                 </div>
 
                 {/* Recent Activity */}
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-foreground mb-6">Activité récente</h2>
+                <div className="mb-6 sm:mb-8">
+                    <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Activité récente</h2>
                     <Card>
                         <CardContent className="p-6">
                             <div className="space-y-4">
-                                <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                    <div className="flex-1">
+                                <div className="flex items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-muted/50 rounded-lg">
+                                    <div className="w-2 h-2 mt-2 sm:mt-0 flex-shrink-0 bg-green-500 rounded-full"></div>
+                                    <div className="flex-1 min-w-0">
                                         <p className="font-medium text-foreground">Candidature acceptée</p>
                                         <p className="text-sm text-muted-foreground">
                                             Votre candidature pour "Business Developer" chez Pitch a été acceptée
                                         </p>
                                     </div>
-                                    <span className="text-sm text-muted-foreground">Il y a 2h</span>
+                                    <span className="text-xs sm:text-sm text-muted-foreground flex-shrink-0">Il y a 2h</span>
                                 </div>
-                                <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
-                                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                    <div className="flex-1">
+                                <div className="flex items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-muted/50 rounded-lg">
+                                    <div className="w-2 h-2 mt-2 sm:mt-0 flex-shrink-0 bg-blue-500 rounded-full"></div>
+                                    <div className="flex-1 min-w-0">
                                         <p className="font-medium text-foreground">Nouvelle recommandation</p>
                                         <p className="text-sm text-muted-foreground">3 nouvelles offres correspondent à votre profil</p>
                                     </div>
-                                    <span className="text-sm text-muted-foreground">Il y a 1 jour</span>
+                                    <span className="text-xs sm:text-sm text-muted-foreground flex-shrink-0">Il y a 1 jour</span>
                                 </div>
-                                <div className="flex items-center gap-4 p-4 bg-muted/50 rounded-lg">
-                                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                                    <div className="flex-1">
+                                <div className="flex items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-muted/50 rounded-lg">
+                                    <div className="w-2 h-2 mt-2 sm:mt-0 flex-shrink-0 bg-orange-500 rounded-full"></div>
+                                    <div className="flex-1 min-w-0">
                                         <p className="font-medium text-foreground">Profil consulté</p>
                                         <p className="text-sm text-muted-foreground">
                                             Votre profil a été consulté par 5 recruteurs cette semaine
                                         </p>
                                     </div>
-                                    <span className="text-sm text-muted-foreground">Il y a 3 jours</span>
+                                    <span className="text-xs sm:text-sm text-muted-foreground flex-shrink-0">Il y a 3 jours</span>
                                 </div>
                             </div>
                         </CardContent>
