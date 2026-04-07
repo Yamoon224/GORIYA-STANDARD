@@ -13,6 +13,23 @@ export const metadata: Metadata = {
     title: "Goriya - Plateforme de recrutement",
     description: "Trouvez votre emploi idéal avec Goriya",
     // generator: "v0.app",
+    icons: {
+        icon: [
+            {
+                url: '/favicon.png',
+                media: '(prefers-color-scheme: light)',
+            },
+            {
+                url: '/favicon.png',
+                media: '(prefers-color-scheme: dark)',
+            },
+            {
+                url: '/favicon.png',
+                type: 'image/png',
+            },
+        ],
+        apple: '/apple-icon.png',
+    },
 }
 
 export default function RootLayout({
